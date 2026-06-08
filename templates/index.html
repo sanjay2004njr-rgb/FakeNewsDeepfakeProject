@@ -1,53 +1,124 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Fake News & Deepfake Detection</title>
+    <title>Fake News & Deepfake Detection System</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 30px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .box {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #ccc;
+        }
+
+        textarea {
+            width: 90%;
+            height: 120px;
+            padding: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        h2, h3 {
+            color: #444;
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>Fake News Detection</h1>
+<div class="container">
 
-    <form method="POST" action="/predict_news">
+    <h1>Fake News & Deepfake Detection System</h1>
 
-        <textarea
-            name="news"
-            rows="10"
-            cols="60"
-            placeholder="Enter News Here"></textarea>
+    <!-- Fake News Detection -->
+    <div class="box">
 
-        <br><br>
+        <h2>Fake News Detection</h2>
 
-        <button type="submit">
-            Check News
-        </button>
+        <form action="/predict_news" method="POST">
 
-    </form>
+            <textarea
+                name="news"
+                placeholder="Enter news text here..."
+                required></textarea>
 
-    <h2>{{ news_result }}</h2>
+            <br><br>
 
-    <hr>
+            <button type="submit">
+                Check News
+            </button>
 
-    <h1>Deepfake Image Detection</h1>
+        </form>
 
-    <form
-        method="POST"
-        action="/predict_image"
-        enctype="multipart/form-data">
+        {% if ml_result %}
+        <hr>
 
-        <input type="file" name="image">
+        <h3>ML Prediction: {{ ml_result }}</h3>
 
-        <br><br>
+        <h3>Online Verification: {{ online_result }}</h3>
 
-        <button type="submit">
-            Detect Image
-        </button>
+        <h2>Final Result: {{ final_result }}</h2>
 
-    </form>
+        {% endif %}
 
-    <h2>{{ image_result }}</h2>
+    </div>
+
+    <!-- Deepfake Detection -->
+    <div class="box">
+
+        <h2>Deepfake Detection</h2>
+
+        <form
+            action="/predict_image"
+            method="POST"
+            enctype="multipart/form-data">
+
+            <input
+                type="file"
+                name="image"
+                accept="image/*"
+                required>
+
+            <br><br>
+
+            <button type="submit">
+                Check Image
+            </button>
+
+        </form>
+
+        {% if image_result %}
+        <hr>
+
+        <h2>{{ image_result }}</h2>
+
+        {% endif %}
+
+    </div>
+
+</div>
 
 </body>
-
 </html>
