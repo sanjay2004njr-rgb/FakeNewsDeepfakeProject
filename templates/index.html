@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Fake News & Deepfake Detection</title>
+</head>
+
+<body>
+
+    <h1>Fake News Detection</h1>
+
+    <form method="POST" action="/predict_news">
+
+        <textarea
+            name="news"
+            rows="10"
+            cols="60"
+            placeholder="Enter News Here"></textarea>
+
+        <br><br>
+
+        <button type="submit">
+            Check News
+        </button>
+
+    </form>
+
+    <h2>{{ news_result }}</h2>
+
+    <hr>
+
+    <h1>Deepfake Image Detection</h1>
+
+    <form
+        method="POST"
+        action="/predict_image"
+        enctype="multipart/form-data">
+
+        <input type="file" name="image">
+
+        <br><br>
+
+        <button type="submit">
+            Detect Image
+        </button>
+
+    </form>
+
+    <h2>{{ image_result }}</h2>
+
+</body>
+
+</html>
